@@ -44,12 +44,12 @@ let tempDog = [{
 
 app.get('/api/cats',(req, res, next)=>{
   //get a temp cat object  
-  res.json(tempCat[0]);
+  res.json(tempCat);
 });
 
 app.get('/api/dogs',(req, res, next)=>{
   //get a temp dog object
-  res.json(tempDog[0]);
+  res.json(tempDog);
 });
 
 
