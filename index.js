@@ -70,8 +70,9 @@ app.delete('/api/dogs', (req, res, next)=>{
   //   breed: 'N/A',
   //   story: 'N/A'
   // };
-  tempDog.shift();
-  res.status(201).json(tempDog);
+  //tempDog.shift();
+  myDogs.dequeue();
+  res.status(201).json(myDogs.peek());
 });
 
 app.delete('/api/cats', (req, res, next)=>{
@@ -85,8 +86,11 @@ app.delete('/api/cats', (req, res, next)=>{
   //   breed: 'N/A',
   //   story: 'N/A'
   // };
-  tempCat.shift();//this will be dequeue later,
-  res.status(201).json(tempCat);// peek- at queue ->send that      
+  //tempCat.shift();//this will be dequeue later,
+
+  myCats.dequeue();
+
+  res.status(201).json(myCats.peek());// peek- at queue ->send that      
 });
 // action reducer = newState=client needs do some de-queue off local state.
 
