@@ -22,6 +22,73 @@ app.use(
   })
 );
 
+let tempCat = [{
+  imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
+  imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
+  name: 'Fluffy',
+  sex: 'Female',
+  age: 2,
+  breed: 'Bengal',
+  story: 'Thrown on the street'
+}];
+
+let tempDog = [{
+  imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+  imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+  name: 'Zeus',
+  sex: 'Male',
+  age: 3,
+  breed: 'Golden Retriever',
+  story: 'Owner Passed away'
+}];
+
+app.get('/api/cats',(req, res, next)=>{
+  //get a temp cat object  
+  res.json(tempCat[0]);
+});
+
+app.get('/api/dogs',(req, res, next)=>{
+  //get a temp dog object
+  res.json(tempDog[0]);
+});
+
+
+app.delete('/api/dogs', (req, res, next)=>{
+  //remove the cat from the database, but
+  //for now just remove the hard-coded-object
+  // tempDog[0] = { imageURL:'', 
+  //   imageDescription: 'No dog!',
+  //   name: 'No dogs availible for adoption',
+  //   sex: 'N/A',
+  //   age: -1,
+  //   breed: 'N/A',
+  //   story: 'N/A'
+  // };
+  tempDog.shift();
+  res.status(201).json(tempDog);
+});
+
+app.delete('/api/cats', (req, res, next)=>{
+  //remove the cat from the database, but
+  //for now just remove the hard-coded-object
+  // tempCat[0] = { imageURL:'', 
+  //   imageDescription: 'No cat!',
+  //   name: 'No cats availible for adoption',
+  //   sex: 'N/A',
+  //   age: -1,
+  //   breed: 'N/A',
+  //   story: 'N/A'
+  // };
+  tempCat.shift();//this will be dequeue later,
+  res.status(201).json(tempCat);// peek- at queue ->send that      
+});
+// action reducer = newState=client needs do some de-queue off local state.
+
+app.use('*', (req,res,next)=>{
+  //simple catch all route  
+  res.status(404).send('Error 404: route not found!');  
+});
+
 function runServer(port = PORT) {
   const server = app
     .listen(port, () => {
