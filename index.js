@@ -33,6 +33,15 @@ myCats.enqueue({
   story: 'Thrown on the street'
 });
 
+myCats.enqueue({
+  imageURL:'https://images.pexels.com/photos/315582/pexels-photo-315582.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 
+  imageDescription: 'stripes lounging on concrete.',
+  name: 'Fluffy2',
+  sex: 'Female',
+  age: 2,
+  breed: 'Bengaloid',
+  story: 'livin on a prayer'
+});
 let myDogs = new Queue();
 
 myDogs.enqueue({
@@ -71,8 +80,13 @@ app.delete('/api/dogs', (req, res, next)=>{
   //   story: 'N/A'
   // };
   //tempDog.shift();
-  myDogs.dequeue();
-  res.status(201).json(myDogs.peek());
+  let nextInLine = myDogs.dequeue();
+  //if(nextInLine){
+    res.status(201).json(nextInLine);
+  //} 
+  /*else {
+    res.status(201).send("Empty Q");
+  }*/
 });
 
 app.delete('/api/cats', (req, res, next)=>{
